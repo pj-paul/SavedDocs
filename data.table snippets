@@ -1,0 +1,13 @@
+#Use lapply with .SDcols
+
+cols <- c('COL1', 'COL2', 'COL3')
+main_tb <- main_tb %>% 
+  .[,  c(cols):= lapply(.SD, function(x) ifelse(is.na(x), 0, x))
+    , .SDcols = cols]
+
+#Aggregate with .SDcols
+
+cols_by <- c('COL1', 'COL2')
+cols_sum <- c('COL3', 'COL4')
+dt <- dt %>%
+  .[, lapply(.SD, sum), by = item_no_col, .SDcols = cols_sum]
